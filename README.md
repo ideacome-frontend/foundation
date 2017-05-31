@@ -20,7 +20,6 @@ npm link ../ideacome-foundation
 3. 在代码中使用
 ```javascript
 import { validators } from '@ideacome/foundation';
-
 if (validators.isValidPlate(plateNumber)) {
     //...
 }
@@ -28,7 +27,6 @@ if (validators.isValidPlate(plateNumber)) {
 如果只需要特定的功能函数，则推荐更细致的导入：
 ```javascript
 import isValidID from '@ideacome/foundation/validators/id-validator';
-
 if (isValidID(idNumber)) {
     //...
 }
@@ -40,17 +38,17 @@ if (isValidID(idNumber)) {
 cd ~/Workspace/ideacome-foundation
 git pull
 ```
-就可以了，所有引用这个库的其他项目都能使用到最新代码。
+就可以了，所有引用这个库的其他项目都能使用到最新代码。
 
 ## 贡献代码
-这个库的源码采用 `typescript` 编写，在 `src` 目录下。
+这个库的源码采用 `typescript` 编写，在 `src` 目录下。
 1. 安装依赖
 ```bash
 cd ~/Workspace/some-awesome-project
 npm install
 ```
 
-2. 更改 `src` 下的代码，推荐使用 [Visual Studio Code](https://code.visualstudio.com) 编辑器。
+2. 更改 `src` 下的代码，推荐使用 [Visual Studio Code](https://code.visualstudio.com) 编辑器。
 
 3. 执行代码编译，然后提交
 ```bash
