@@ -1,0 +1,16 @@
+{
+  "name": "@ideacome/foundation",
+  "version": "0.0.1",
+  "description": "common library for front end",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev": "tsc -w"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^2.3.4"
+  }
+}
