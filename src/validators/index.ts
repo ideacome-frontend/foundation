@@ -1,4 +1,6 @@
 
-export * from './car-info-validators';
+export * from './car-info';
 
-export { default as isValidID } from './id-validator';
+export * from './user-info';
+
+export * from './string';

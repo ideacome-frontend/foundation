@@ -1,11 +1,11 @@
-import { trimAllWhitespace as trim } from "../utils";
+import { trimAll } from "../transform/string";
 
 /**
  * 验证车牌有效性；除去前缀，例如浙A，普通车牌后面有5位数字字母组合，新能源会有6位。
  * @param plateNumber 车牌
  */
 export function isValidPlate(plateNumber: string): boolean {
-    let p = trim(plateNumber.toUpperCase());
+    let p = trimAll(plateNumber.toUpperCase());
     let r = RegExp("^[宁冀鄂吉云皖蒙甘渝津粤沪京港新澳贵辽琼桂晋苏黑青陕藏浙湘川赣豫鲁台闽][A-HJ-NP-Z][A-HJ-NP-Z0-9]{5,6}$");
     return r.test(p);
 }
@@ -16,7 +16,7 @@ export function isValidPlate(plateNumber: string): boolean {
  * @returns 0表示条件一：VIN码只能录入数字和字母，且不能含I、O、Q 没有满足;1表示满足条件一的前提下第9位加权算法不符合;2表示满足条件一的前提下第9位也符合
  */
 export function validateVin(vinNumber: string): number {
-    let v = trim(vinNumber.toUpperCase());
+    let v = trimAll(vinNumber.toUpperCase());
     let r = /^((?![IOQ])[A-Z\d]){17}$/g;
     if (!r.test(v)) {
         return 0;
@@ -63,5 +63,5 @@ export function validateVin(vinNumber: string): number {
  */
 export function isValidEngineNumber(engineNumber: string): boolean {
     let r = /^[0-9A-Za-z\-\－\u4e00-\u9fa5]{1,20}$/;
-    return r.test(trim(engineNumber));
+    return r.test(trimAll(engineNumber));
 }

@@ -1,4 +1,5 @@
 # 前端公共库
+这个公共库包含与具体项目UI无关的代码。
 
 ## 安装与使用
 假设前端项目的工作区是 `~/Workspace/`，包含项目 `some-awesome-project` 等其他子目录
@@ -26,7 +27,7 @@ if (validators.isValidPlate(plateNumber)) {
 ```
 如果只需要特定的功能函数，则推荐更细致的导入：
 ```javascript
-import isValidID from '@ideacome/foundation/validators/id-validator';
+import { isValidID } from '@ideacome/foundation/validators/user-info';
 if (isValidID(idNumber)) {
     //...
 }
