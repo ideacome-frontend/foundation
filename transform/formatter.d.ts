@@ -1,11 +1,4 @@
 /**
- * 在字符串开始处填充字符，使得总长度不少于指定长度
- * @param sn 数字或者字符串
- * @param length 最小长度
- * @param ch 用于填充的字符
- */
-export declare function pad(sn: string | number, length: number, ch?: string): string;
-/**
  * 格式化日期成指定格式字符串；
  * 完整支持的格式为 `yyyy-MM-dd HH:mm:ss.S`；
  * 当然可以只使用部分格式；
@@ -22,3 +15,18 @@ export declare function formatDate(d: Date | number | string, fmt: string): stri
  * @param timestamp 时间戳
  */
 export declare function friendlyFormatTime(timestamp: number): string;
+/**
+ * 格式化银行卡号，每4位数字之间加一个空格。
+ * @param cardNumber 银行卡号
+ */
+export declare function formatBankCardNumber(cardNumber: string): string;
+/**
+ * 格式化手机号为 `### #### ####`
+ * @param phone 手机号
+ */
+export declare function formatPhoneNumber(phone: string): string;
+/**
+ * 用大写中文字表示浮点数金额
+ * @param n 浮点数表示的金额
+ */
+export declare function formatMoneyUppercasedChinese(n: number): string;

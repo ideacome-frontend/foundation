@@ -262,4 +262,10 @@ const xfxBridge = {
 
 window['xfxBridge'] = xfxBridge;
 
+declare global {
+    interface Window {
+        xfxBridge: any;
+    }
+}
+
 export default xfxBridge;

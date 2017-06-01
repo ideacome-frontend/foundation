@@ -25,5 +25,10 @@ declare const xfxBridge: {
     supports: (cap: any) => boolean;
     getPlatform: () => any;
 };
+declare global  {
+    interface Window {
+        xfxBridge: any;
+    }
+}
 export default xfxBridge;
 export {};

@@ -1,17 +1,5 @@
 import { dateFromStringOrNumber } from "./date";
-/**
- * 在字符串开始处填充字符，使得总长度不少于指定长度
- * @param sn 数字或者字符串
- * @param length 最小长度
- * @param ch 用于填充的字符
- */
-export function pad(sn, length, ch = '0') {
-    let ret = '' + sn;
-    while (ret.length < length) {
-        ret = ch + ret;
-    }
-    return ret;
-}
+import { pad, trimAll } from "./string";
 /**
  * 格式化日期成指定格式字符串；
  * 完整支持的格式为 `yyyy-MM-dd HH:mm:ss.S`；
@@ -73,4 +61,49 @@ export function friendlyFormatTime(timestamp) {
     else {
         return formatDate(timestamp, 'MM/dd');
     }
+}
+/**
+ * 格式化银行卡号，每4位数字之间加一个空格。
+ * @param cardNumber 银行卡号
+ */
+export function formatBankCardNumber(cardNumber) {
+    let n = trimAll(cardNumber);
+    n = n.replace(/(\d{4})(?=\d)/g, "$1 ");
+    return n;
+}
+/**
+ * 格式化手机号为 `### #### ####`
+ * @param phone 手机号
+ */
+export function formatPhoneNumber(phone) {
+    let n = trimAll(phone);
+    let parts = [n.slice(0, 3), n.slice(3, 7), n.slice(7)]
+        .filter((p) => !!p);
+    return parts.join(' ');
+}
+/**
+ * 用大写中文字表示浮点数金额
+ * @param n 浮点数表示的金额
+ */
+export function formatMoneyUppercasedChinese(n) {
+    let fraction = ['角', '分'];
+    let digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+    let unit = [['元', '万', '亿'], ['', '拾', '佰', '仟']];
+    let head = n < 0 ? '欠' : '';
+    n = Math.abs(n);
+    let s = '';
+    for (let i = 0; i < fraction.length; i++) {
+        s += (digit[Math.floor(n * 10 * Math.pow(10, i)) % 10] + fraction[i]).replace(/零./, '');
+    }
+    s = s || '整';
+    n = Math.floor(n);
+    for (let i = 0; i < unit[0].length && n > 0; i++) {
+        let p = '';
+        for (let j = 0; j < unit[1].length && n > 0; j++) {
+            p = digit[n % 10] + unit[1][j] + p;
+            n = Math.floor(n / 10);
+        }
+        s = p.replace(/(零.)*零$/, '').replace(/^$/, '零') + unit[0][i] + s;
+    }
+    return head + s.replace(/(零.)*零元/, '元').replace(/(零.)+/g, '零').replace(/^整$/, '零元整');
 }
