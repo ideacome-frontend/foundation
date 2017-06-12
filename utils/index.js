@@ -6,8 +6,8 @@ export { default as Timer } from './timer';
  * @returns 数字数组
  */
 export function numbersInRange(start, end) {
-    let arr = [];
-    for (let i = start; i <= end; ++i) {
+    var arr = [];
+    for (var i = start; i <= end; ++i) {
         arr.push(i);
     }
     return arr;

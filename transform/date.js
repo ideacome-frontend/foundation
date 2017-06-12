@@ -6,8 +6,8 @@
  * @param sn 字符串或者时间戳
  */
 export function dateFromStringOrNumber(sn) {
-    let dpart;
-    let tpart;
+    var dpart;
+    var tpart;
     if (typeof sn === 'number') {
         return new Date(sn);
     }

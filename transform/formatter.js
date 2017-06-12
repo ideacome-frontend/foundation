@@ -9,14 +9,14 @@ import { pad, trimAll } from "./string";
  * @param fmt 格式字符串
  */
 export function formatDate(d, fmt) {
-    let date;
+    var date;
     if (typeof d === 'number' || typeof d === 'string') {
         date = dateFromStringOrNumber(d);
     }
     else {
         date = d;
     }
-    let o = {
+    var o = {
         "M+": date.getMonth() + 1,
         "d+": date.getDate(),
         "H+": date.getHours(),
@@ -28,8 +28,8 @@ export function formatDate(d, fmt) {
     if (/(y+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
     }
-    for (let k in o) {
-        if (new RegExp(`(${k})`).test(fmt)) {
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(fmt)) {
             fmt = fmt.replace(RegExp.$1, pad(o[k], RegExp.$1.length));
         }
     }
@@ -43,13 +43,13 @@ export function formatDate(d, fmt) {
  * @param timestamp 时间戳
  */
 export function friendlyFormatTime(timestamp) {
-    let date = new Date();
+    var date = new Date();
     date.setHours(0);
     date.setMinutes(0);
     date.setSeconds(0);
     date.setMilliseconds(0);
-    let startOftoday = date.getTime();
-    let startOfyesterday = startOftoday - 24 * 3600 * 1000;
+    var startOftoday = date.getTime();
+    var startOfyesterday = startOftoday - 24 * 3600 * 1000;
     if (timestamp > startOfyesterday) {
         if (timestamp < startOftoday) {
             return '昨天';
@@ -67,7 +67,7 @@ export function friendlyFormatTime(timestamp) {
  * @param cardNumber 银行卡号
  */
 export function formatBankCardNumber(cardNumber) {
-    let n = trimAll(cardNumber);
+    var n = trimAll(cardNumber);
     n = n.replace(/(\d{4})(?=\d)/g, "$1 ");
     return n;
 }
@@ -76,9 +76,9 @@ export function formatBankCardNumber(cardNumber) {
  * @param phone 手机号
  */
 export function formatPhoneNumber(phone) {
-    let n = trimAll(phone);
-    let parts = [n.slice(0, 3), n.slice(3, 7), n.slice(7)]
-        .filter((p) => !!p);
+    var n = trimAll(phone);
+    var parts = [n.slice(0, 3), n.slice(3, 7), n.slice(7)]
+        .filter(function (p) { return !!p; });
     return parts.join(' ');
 }
 /**
@@ -86,20 +86,20 @@ export function formatPhoneNumber(phone) {
  * @param n 浮点数表示的金额
  */
 export function formatMoneyUppercasedChinese(n) {
-    let fraction = ['角', '分'];
-    let digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
-    let unit = [['元', '万', '亿'], ['', '拾', '佰', '仟']];
-    let head = n < 0 ? '欠' : '';
+    var fraction = ['角', '分'];
+    var digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+    var unit = [['元', '万', '亿'], ['', '拾', '佰', '仟']];
+    var head = n < 0 ? '欠' : '';
     n = Math.abs(n);
-    let s = '';
-    for (let i = 0; i < fraction.length; i++) {
+    var s = '';
+    for (var i = 0; i < fraction.length; i++) {
         s += (digit[Math.floor(n * 10 * Math.pow(10, i)) % 10] + fraction[i]).replace(/零./, '');
     }
     s = s || '整';
     n = Math.floor(n);
-    for (let i = 0; i < unit[0].length && n > 0; i++) {
-        let p = '';
-        for (let j = 0; j < unit[1].length && n > 0; j++) {
+    for (var i = 0; i < unit[0].length && n > 0; i++) {
+        var p = '';
+        for (var j = 0; j < unit[1].length && n > 0; j++) {
             p = digit[n % 10] + unit[1][j] + p;
             n = Math.floor(n / 10);
         }

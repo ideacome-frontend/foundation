@@ -1,34 +1,39 @@
-export class ResultFuture {
-    success(cb) {
+var ResultFuture = (function () {
+    function ResultFuture() {
+    }
+    ResultFuture.prototype.success = function (cb) {
         this.successCallback = cb;
         return this;
-    }
-    failure(cb) {
+    };
+    ResultFuture.prototype.failure = function (cb) {
         this.failureCallback = cb;
         return this;
-    }
-    _invokeSuccess(data) {
+    };
+    ResultFuture.prototype._invokeSuccess = function (data) {
         this.successCallback && this.successCallback(data);
-    }
-    _invokeFailure(reason) {
+    };
+    ResultFuture.prototype._invokeFailure = function (reason) {
         this.failureCallback && this.failureCallback(reason);
-    }
-}
-export class WXBBridge {
-    constructor() {
+    };
+    return ResultFuture;
+}());
+export { ResultFuture };
+var WXBBridge = (function () {
+    function WXBBridge() {
+        var _this = this;
         this.resultFutures = {};
         this.eventHandlers = {};
         this.id = 0;
         this.hostInfo = {};
         if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.wxbbridge) {
-            this.doSend = (command, params, commandId) => {
-                window['webkit'].messageHandlers.wxbbridge.postMessage({ command, params, commandId });
+            this.doSend = function (command, params, commandId) {
+                window['webkit'].messageHandlers.wxbbridge.postMessage({ command: command, params: params, commandId: commandId });
             };
             this.hostInfo = window['__wxb_host_info'];
         }
         else if (window['wxbbridgeandroid']) {
-            this.doSend = (command, params, commandId) => {
-                window['wxbbridgeandroid'].handleCommand(JSON.stringify({ command, params, commandId }));
+            this.doSend = function (command, params, commandId) {
+                window['wxbbridgeandroid'].handleCommand(JSON.stringify({ command: command, params: params, commandId: commandId }));
             };
             try {
                 this.hostInfo = JSON.parse(window['wxbbridgeandroid'].getHostInfo());
@@ -37,30 +42,30 @@ export class WXBBridge {
             }
         }
         else {
-            this.doSend = (command, params, commandId) => {
-                this._notifyFailure({ commandId, reason: 'error not inside app' });
+            this.doSend = function (command, params, commandId) {
+                _this._notifyFailure({ commandId: commandId, reason: 'error not inside app' });
             };
         }
     }
-    getHostInfo() {
+    WXBBridge.prototype.getHostInfo = function () {
         return JSON.parse(JSON.stringify(this.hostInfo));
-    }
-    sendCommand(command, params) {
-        let key = `${command}_${this.id++}`;
-        let r = new ResultFuture();
+    };
+    WXBBridge.prototype.sendCommand = function (command, params) {
+        var key = command + "_" + this.id++;
+        var r = new ResultFuture();
         this.resultFutures[key] = r;
         this.doSend(command, params || {}, key);
         return r;
-    }
-    on(event, callback) {
-        let cbs = this.eventHandlers[event] || [];
+    };
+    WXBBridge.prototype.on = function (event, callback) {
+        var cbs = this.eventHandlers[event] || [];
         cbs.push(callback);
         this.eventHandlers[event] = cbs;
-    }
-    off(event, callback) {
+    };
+    WXBBridge.prototype.off = function (event, callback) {
         if (callback) {
-            let cbs = this.eventHandlers[event] || [];
-            let idx = cbs.indexOf(callback);
+            var cbs = this.eventHandlers[event] || [];
+            var idx = cbs.indexOf(callback);
             if (idx >= 0) {
                 cbs.splice(idx, 1);
             }
@@ -68,24 +73,29 @@ export class WXBBridge {
         else {
             delete this.eventHandlers[event];
         }
-    }
-    _postResponse({ commandId, response }) {
-        let r = this.resultFutures[commandId];
-        setTimeout(() => { r && r._invokeSuccess(response); }, 0);
+    };
+    WXBBridge.prototype._postResponse = function (_a) {
+        var commandId = _a.commandId, response = _a.response;
+        var r = this.resultFutures[commandId];
+        setTimeout(function () { r && r._invokeSuccess(response); }, 0);
         delete this.resultFutures[commandId];
-    }
-    _notifyFailure({ commandId, reason }) {
-        let r = this.resultFutures[commandId];
-        setTimeout(() => { r && r._invokeFailure(reason); }, 0);
+    };
+    WXBBridge.prototype._notifyFailure = function (_a) {
+        var commandId = _a.commandId, reason = _a.reason;
+        var r = this.resultFutures[commandId];
+        setTimeout(function () { r && r._invokeFailure(reason); }, 0);
         delete this.resultFutures[commandId];
-    }
-    _postEvent({ name, data }) {
-        let cbs = this.eventHandlers[name];
+    };
+    WXBBridge.prototype._postEvent = function (_a) {
+        var name = _a.name, data = _a.data;
+        var cbs = this.eventHandlers[name];
         if (cbs) {
-            setTimeout(() => { cbs.forEach((fn) => { fn(data); }); }, 0);
+            setTimeout(function () { cbs.forEach(function (fn) { fn(data); }); }, 0);
         }
-    }
-}
-const bridge = new WXBBridge();
+    };
+    return WXBBridge;
+}());
+export { WXBBridge };
+var bridge = new WXBBridge();
 window['wxbBridge'] = bridge;
 export default bridge;

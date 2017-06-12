@@ -18,25 +18,25 @@ export function isValidPlate(plateNumber: string): boolean {
 export function validateVin(vinNumber: string): number {
     let v = trimAll(vinNumber.toUpperCase());
     let r = /^((?![IOQ])[A-Z\d]){17}$/g;
+    let letterGroup = ['', 'AJ', 'BKS', 'CLT', 'DMU', 'ENV', 'FW', 'GPX', 'HY', 'RZ'];
+    let weight = [8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2];
+
+    function letterToN(letter: string): number {
+        let n: number;
+        n = parseInt(letter);
+        if (isNaN(n)) {
+            letterGroup.forEach((group, index) => {
+                if (group.indexOf(letter) != -1) {
+                    n = index;
+                }
+            });
+        }
+        return n;
+    }
+
     if (!r.test(v)) {
         return 0;
     } else {
-        let letterGroup = ['', 'AJ', 'BKS', 'CLT', 'DMU', 'ENV', 'FW', 'GPX', 'HY', 'RZ'];
-        let weight = [8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2];
-
-        function letterToN(letter: string): number {
-            let n: number;
-            n = parseInt(letter);
-            if (isNaN(n)) {
-                letterGroup.forEach((group, index) => {
-                    if (group.indexOf(letter) != -1) {
-                        n = index;
-                    }
-                });
-            }
-            return n;
-        }
-
         let sum = v.split('')
             .map(letterToN)
             .reduce((p, n, i) => {

@@ -216,7 +216,7 @@ function _uploadFile(arg0, arg1) {
         _methodForUploadFile(arg0);
     }
 }
-const xfxBridge = {
+var xfxBridge = {
     initialized: initialized,
     init: init,
     sendCommand: sendCommand,

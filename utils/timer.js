@@ -12,19 +12,20 @@
  * timer.stop();
  * ```
  */
-export default class Timer {
-    constructor(options) {
+var Timer = (function () {
+    function Timer(options) {
+        var _this = this;
         this.options = options;
         this.startTime = Date.now();
         this.stopped = false;
-        this.handle = setInterval(() => { this.check(); }, 1000);
+        this.handle = setInterval(function () { _this.check(); }, 1000);
         if (this.options.checkSoon) {
-            setTimeout(() => { this.check(); }, 0);
+            setTimeout(function () { _this.check(); }, 0);
         }
     }
-    check() {
-        let now = Date.now();
-        let passed = Math.ceil((now - this.startTime) / 1000);
+    Timer.prototype.check = function () {
+        var now = Date.now();
+        var passed = Math.ceil((now - this.startTime) / 1000);
         if (passed >= this.options.seconds) {
             if (this.options.done) {
                 this.options.done.call(null);
@@ -36,12 +37,14 @@ export default class Timer {
                 this.options.tick.call(null, this.options.seconds - passed);
             }
         }
-    }
-    stop() {
+    };
+    Timer.prototype.stop = function () {
         if (this.stopped) {
             return;
         }
         clearInterval(this.handle);
         this.stopped = true;
-    }
-}
+    };
+    return Timer;
+}());
+export default Timer;

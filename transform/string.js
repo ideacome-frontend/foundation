@@ -14,8 +14,9 @@ export function trimAll(s) {
  * @param length 最小长度
  * @param ch 用于填充的字符
  */
-export function pad(sn, length, ch = '0') {
-    let ret = '' + sn;
+export function pad(sn, length, ch) {
+    if (ch === void 0) { ch = '0'; }
+    var ret = '' + sn;
     while (ret.length < length) {
         ret = ch + ret;
     }

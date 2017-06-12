@@ -4,7 +4,7 @@ import { trimAll } from "../transform/string";
  * @param s 目标字符串
  */
 export function isAllChinese(s) {
-    let r = /^[\u4E00-\u9FA5]+$/i;
+    var r = /^[\u4E00-\u9FA5]+$/i;
     return r.test(trimAll(s));
 }
 /**
@@ -12,6 +12,6 @@ export function isAllChinese(s) {
  * @param s 目标字符串
  */
 export function hasChinese(s) {
-    let r = /[\u4E00-\u9FA5]/;
+    var r = /[\u4E00-\u9FA5]/;
     return r.test(s);
 }
