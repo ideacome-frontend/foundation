@@ -6,3 +6,9 @@ export { default as Timer } from './timer';
  * @returns 数字数组
  */
 export declare function numbersInRange(start: number, end: number): number[];
+/**
+ * 返回 `year` 年 `month` 月 全月天数
+ * @param month 月份
+ * @param year 年份
+ */
+export declare function daysInMonth(month: number, year: number): number;
