@@ -5,7 +5,7 @@
 
 1. 引入库
 ```bash
-npm install git+ssh://git@192.168.1.7:amazing-f2e/ideacome-foundation.git
+npm install -S git+ssh://git@192.168.1.7:amazing-f2e/ideacome-foundation.git
 ```
 
 2. 在代码中使用
