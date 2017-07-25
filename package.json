@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "dev": "tsc -w"
+    "build": "tsc && npm run doc",
+    "dev": "tsc -w",
+    "doc": "typedoc --excludePrivate --excludeExternals --exclude \"**/bridges/*.ts\" --mode file --target es5 --module es2015 --readme none --out ./doc/ ./src/"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "typedoc": "^0.7.1",
     "typescript": "^2.3.4"
   }
 }

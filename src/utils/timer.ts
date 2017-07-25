@@ -24,7 +24,7 @@ export default class Timer {
 
     private startTime = Date.now();
     private stopped = false;
-    private handle: number;
+    private handle: any;
 
     constructor(private options: TimerOptions) {
         this.handle = setInterval(() => { this.check(); }, 1000);

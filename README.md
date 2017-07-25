@@ -49,4 +49,4 @@ git push origin
 ```
 
 ## 功能列表
-待完善
+查看doc目录下的[文档](./doc/index.html)
