@@ -1,6 +1,6 @@
 /**
  * 获取当前地理定位
- * @return {
+ * @successBack {
       {
         latitude:30.283514799999995  纬度
         longitude:120.0689091   经度
