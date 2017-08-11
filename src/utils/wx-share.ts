@@ -1,5 +1,5 @@
 import { isIncludeJs,loadJs } from "./index";
-export type CallbackType = (arg: any) => void;
+
 /**
  * 微信分享设置
  * @param data

@@ -1,8 +1,7 @@
 
 export { default as Timer } from './timer';
-export * from './geolocation'
-export * from './wx-share'
-export type CallbackType = (arg: any) => void;
+export * from './geolocation';
+export * from './wx-share';
 
 /**
  * 生成一个数字序列，包含从 `start` 递增到 `end` 的数字
@@ -37,6 +36,8 @@ export function daysInMonth(month: number, year: number): number {
     }
 }
 
+export type LoadJsCallback = (...args: any[]) => void;
+
 /**
  * 加载**.js文件
  * scriptSrc 文件路径
@@ -44,7 +45,7 @@ export function daysInMonth(month: number, year: number): number {
  * script 标签id
  * content js标签内的内容
  */
-export function loadJs(scriptSrc:string, successCallback?: CallbackType, id?:string, content?:string) {
+export function loadJs(scriptSrc:string, successCallback?: LoadJsCallback, id?:string, content?:string) {
     //gets document head element
     var head = document.querySelector('head');
     if (head) {
