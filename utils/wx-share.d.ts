@@ -1,4 +1,3 @@
-export declare type CallbackType = (arg: any) => void;
 /**
  * 微信分享设置
  * @param data
