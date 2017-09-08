@@ -1,4 +1,3 @@
-import { trimAll } from "../transform/string";
 
 /**
  * 验证字符串是否只包含中文字符
@@ -6,7 +5,8 @@ import { trimAll } from "../transform/string";
  */
 export function isAllChinese(s: string): boolean {
     let r = /^[\u4E00-\u9FA5]+$/i;
-    return r.test(trimAll(s));
+    // 此处匹配时不将s中的空格去掉
+    return r.test(s);
 }
 
 /**
