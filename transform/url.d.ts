@@ -3,3 +3,8 @@
  * @param url
  */
 export declare function encodeUrlIfNeeded(url: string): string;
+/**
+ * 解析url，获取相应的参数。
+ * @param url
+ */
+export declare function parseUrlQuery(url?: string): any;

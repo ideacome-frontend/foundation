@@ -8,3 +8,20 @@ export function encodeUrlIfNeeded(url) {
     }
     return url;
 }
+/**
+ * 解析url，获取相应的参数。
+ * @param url
+ */
+export function parseUrlQuery(url) {
+    if (url === void 0) { url = location.href; }
+    var query = {}, i, params, param, length;
+    if (typeof url === 'string' && url.length) {
+        url = url.indexOf('?') > -1 ? url.replace(/\S*\?/, '') : '';
+        params = url.split('&'), length = params.length;
+        for (i = 0; i < length; i++) {
+            param = params[i].replace(/#\S+/g, '').split('=');
+            query[decodeURIComponent(param[0])] = decodeURIComponent(param[1]) || '';
+        }
+    }
+    return query;
+}
