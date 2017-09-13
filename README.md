@@ -49,4 +49,4 @@ git push origin
 ```
 
 ## 功能列表
-查看doc目录下的[文档](./doc/index.html)
+查看doc目录下的[文档](http://f7test.wxb.com.cn/ideacome-foundation/index.html)
