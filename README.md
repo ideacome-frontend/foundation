@@ -10,7 +10,7 @@ npm install -S git+ssh://git@192.168.1.7:amazing-f2e/ideacome-foundation.git
 
 2. 在代码中使用
 ```javascript
-import { validators } from '@ideacome/foundation';
+import { validators, utils, transform} from '@ideacome/foundation';
 if (validators.isValidPlate(plateNumber)) {
     //...
 }
@@ -22,6 +22,7 @@ if (isValidID(idNumber)) {
     //...
 }
 ```
+
 
 ## 更新
 当这个公共库有更新时，只需执行
