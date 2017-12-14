@@ -40,7 +40,7 @@ export function isValidEmail(email: string): boolean {
  * @param phone 手机号
  */
 export function isValidCellphone(phone: string): boolean {
-    let r = /^1[3,4,5,7,8]\d{9}$/;
+    let r = /^1[3,4,5,7,8,9]\d{9}$/;
     return r.test(trimAll(phone));
 }
 
