@@ -58,12 +58,10 @@ export class XFXBridge {
         }
         if (platform === 'iOS') {
             this.commandHandler = (co) => {
-                this.commandRegistry[co.command] = co;
                 location.href = `xfx://sendCommand/${co.command}`;
             };
         } else if (platform === 'Android') {
             this.commandHandler = (co) => {
-                this.commandRegistry[co.command] = co;
                 window['xfxForAndroid'].sendCommand(JSON.stringify({ command: co.command, params: co.params || {} }));
             };
         }
@@ -95,6 +93,7 @@ export class XFXBridge {
     }
 
     sendCommand(co: XFXCommand) {
+        this.commandRegistry[co.command] = co;
         this.commandHandler(co);
     }
 

@@ -13,20 +13,17 @@ var XFXBridge = (function () {
         };
     }
     XFXBridge.prototype.init = function (platform, hostSystemInfo) {
-        var _this = this;
         this.platform = platform;
         if (typeof hostSystemInfo === 'object') {
             this.hostSystemInfo = Object.freeze ? Object.freeze(hostSystemInfo) : hostSystemInfo;
         }
         if (platform === 'iOS') {
             this.commandHandler = function (co) {
-                _this.commandRegistry[co.command] = co;
                 location.href = "xfx://sendCommand/" + co.command;
             };
         }
         else if (platform === 'Android') {
             this.commandHandler = function (co) {
-                _this.commandRegistry[co.command] = co;
                 window['xfxForAndroid'].sendCommand(JSON.stringify({ command: co.command, params: co.params || {} }));
             };
         }
@@ -55,6 +52,7 @@ var XFXBridge = (function () {
         return JSON.stringify(params || {});
     };
     XFXBridge.prototype.sendCommand = function (co) {
+        this.commandRegistry[co.command] = co;
         this.commandHandler(co);
     };
     XFXBridge.prototype.openNewWebview = function (o) {
