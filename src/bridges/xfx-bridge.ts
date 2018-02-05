@@ -28,6 +28,12 @@ export interface XFXHostSystemInfo {
      */
     model?: string;
     /**
+     * 品牌
+     */
+    brand?: string;
+    screenWidth?: number;
+    screenHeight?: number;
+    /**
      * App打包渠道, e.g. 'app store'
      */
     channel?: string;
@@ -49,9 +55,40 @@ export class XFXBridge {
                 noImpl: true,
             });
         };
+        if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.xfxbridge) {
+            this.initIOS();
+        }
+        if (window['xfxForAndroid'] && 'getHostInfo' in window['xfxForAndroid']) {
+            this.initAndroid();
+        }
+    }
+
+    private initIOS() {
+        this.initialized = true;
+        this.hostSystemInfo = window['__xfx_host_system_info'];
+        this.platform = 'iOS';
+        this.commandHandler = (co) => {
+            window['webkit'].messageHandlers.xfxbridge.postMessage({command: co.command, params: co.params || {}});
+        };
+    }
+
+    private initAndroid() {
+        this.initialized = true;
+        try {
+            this.hostSystemInfo = JSON.parse(window['xfxForAndroid'].getHostInfo());
+        } catch (e) {
+        }
+        this.platform = 'Android';
+        this.commandHandler = (co) => {
+            window['xfxForAndroid'].sendCommand(JSON.stringify({ command: co.command, params: co.params || {} }));
+        };
     }
 
     private init(platform: string, hostSystemInfo?: object) {
+        if (this.initialized) {
+            console.warn('already intialized. skipping...');
+            return;
+        }
         this.platform = platform;
         if (typeof hostSystemInfo === 'object') {
             this.hostSystemInfo = Object.freeze ? Object.freeze(hostSystemInfo) : hostSystemInfo;

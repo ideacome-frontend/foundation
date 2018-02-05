@@ -18,6 +18,12 @@ export interface XFXHostSystemInfo {
      */
     model?: string;
     /**
+     * 品牌
+     */
+    brand?: string;
+    screenWidth?: number;
+    screenHeight?: number;
+    /**
      * App打包渠道, e.g. 'app store'
      */
     channel?: string;
@@ -30,6 +36,8 @@ export declare class XFXBridge {
     private eventHandler;
     private commandHandler;
     constructor();
+    private initIOS();
+    private initAndroid();
     private init(platform, hostSystemInfo?);
     private respond(o);
     private sendEvent(o);
