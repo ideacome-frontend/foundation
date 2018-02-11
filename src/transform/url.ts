@@ -27,3 +27,12 @@ export function parseUrlQuery(url=location.href): any {
     }
     return query;
 }
+
+/**
+ * 解析json，获得get请求需要的参数字符串。
+ * @param dataJson 
+ */
+export function parseJsonToString(dataJson={}): string {
+    let dataArr = Object.keys(dataJson).map((key) => `${key}=${dataJson[key]}`);
+    return dataArr.join('&');
+}
