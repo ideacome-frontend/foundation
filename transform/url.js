@@ -25,3 +25,12 @@ export function parseUrlQuery(url) {
     }
     return query;
 }
+/**
+ * 解析json，获得get请求需要的参数字符串。eg: {token: 'FeiXia', name: 'aa'}转成'token=FeiXia&name=aa'的形式
+ * @param dataJson
+ */
+export function parseJsonToString(dataJson) {
+    if (dataJson === void 0) { dataJson = {}; }
+    var dataArr = Object.keys(dataJson).map(function (key) { return key + "=" + dataJson[key]; });
+    return dataArr.join('&');
+}
