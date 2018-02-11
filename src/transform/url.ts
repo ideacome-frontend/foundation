@@ -29,7 +29,7 @@ export function parseUrlQuery(url=location.href): any {
 }
 
 /**
- * 解析json，获得get请求需要的参数字符串。
+ * 解析json，获得get请求需要的参数字符串。eg: {token: 'FeiXia', name: 'aa'}转成'token=FeiXia&name=aa'的形式
  * @param dataJson 
  */
 export function parseJsonToString(dataJson={}): string {
