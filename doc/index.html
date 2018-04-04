@@ -97,12 +97,14 @@
 								<li class="tsd-kind-function"><a href="index.html#getcurrentcoords" class="tsd-kind-icon">get<wbr>Current<wbr>Coords</a></li>
 								<li class="tsd-kind-function"><a href="index.html#haschinese" class="tsd-kind-icon">has<wbr>Chinese</a></li>
 								<li class="tsd-kind-function"><a href="index.html#isallchinese" class="tsd-kind-icon">is<wbr>All<wbr>Chinese</a></li>
+								<li class="tsd-kind-function"><a href="index.html#isdate" class="tsd-kind-icon">is<wbr>Date</a></li>
 								<li class="tsd-kind-function"><a href="index.html#isincludejs" class="tsd-kind-icon">is<wbr>Include<wbr>Js</a></li>
 								<li class="tsd-kind-function"><a href="index.html#isvalidbankcardnumber" class="tsd-kind-icon">is<wbr>Valid<wbr>Bank<wbr>Card<wbr>Number</a></li>
 								<li class="tsd-kind-function"><a href="index.html#isvalidcellphone" class="tsd-kind-icon">is<wbr>Valid<wbr>Cellphone</a></li>
 								<li class="tsd-kind-function"><a href="index.html#isvalidemail" class="tsd-kind-icon">is<wbr>Valid<wbr>Email</a></li>
 								<li class="tsd-kind-function"><a href="index.html#isvalidenginenumber" class="tsd-kind-icon">is<wbr>Valid<wbr>Engine<wbr>Number</a></li>
 								<li class="tsd-kind-function"><a href="index.html#isvalidid" class="tsd-kind-icon">is<wbr>ValidID</a></li>
+								<li class="tsd-kind-function"><a href="index.html#isvalidpassword" class="tsd-kind-icon">is<wbr>Valid<wbr>Password</a></li>
 								<li class="tsd-kind-function"><a href="index.html#isvalidplate" class="tsd-kind-icon">is<wbr>Valid<wbr>Plate</a></li>
 								<li class="tsd-kind-function"><a href="index.html#loadjs" class="tsd-kind-icon">load<wbr>Js</a></li>
 								<li class="tsd-kind-function"><a href="index.html#numbersinrange" class="tsd-kind-icon">numbers<wbr>InRange</a></li>
@@ -521,6 +523,37 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isdate" class="tsd-anchor"></a>
+					<h3>is<wbr>Date</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Date<span class="tsd-signature-symbol">(</span>date<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in validators/string.ts:26</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>验证日期</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>date: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>2001-01-01</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="isincludejs" class="tsd-anchor"></a>
 					<h3>is<wbr>Include<wbr>Js</h3>
 					<ul class="tsd-signatures tsd-kind-function">
@@ -559,7 +592,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in validators/user-info.ts:51</li>
+									<li>Defined in validators/user-info.ts:55</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -590,7 +623,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in validators/user-info.ts:42</li>
+									<li>Defined in validators/user-info.ts:46</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -621,7 +654,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in validators/user-info.ts:33</li>
+									<li>Defined in validators/user-info.ts:37</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -677,7 +710,7 @@
 					<a name="isvalidid" class="tsd-anchor"></a>
 					<h3>is<wbr>ValidID</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>ValidID<span class="tsd-signature-symbol">(</span>idNumber<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">is<wbr>ValidID<span class="tsd-signature-symbol">(</span>idNumber<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -694,10 +727,39 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>idNumber: <span class="tsd-signature-type">string</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> idNumber: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>身份证号码</p>
 									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isvalidpassword" class="tsd-anchor"></a>
+					<h3>is<wbr>Valid<wbr>Password</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Valid<wbr>Password<span class="tsd-signature-symbol">(</span>password<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in validators/user-info.ts:64</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>验证密码
+									规则：8-16位数字和字母组成的字符串</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>password: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -1084,6 +1146,9 @@
 						<a href="index.html#isallchinese" class="tsd-kind-icon">is<wbr>All<wbr>Chinese</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="index.html#isdate" class="tsd-kind-icon">is<wbr>Date</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="index.html#isincludejs" class="tsd-kind-icon">is<wbr>Include<wbr>Js</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -1100,6 +1165,9 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="index.html#isvalidid" class="tsd-kind-icon">is<wbr>ValidID</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#isvalidpassword" class="tsd-kind-icon">is<wbr>Valid<wbr>Password</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="index.html#isvalidplate" class="tsd-kind-icon">is<wbr>Valid<wbr>Plate</a>

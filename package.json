@@ -1,6 +1,6 @@
 {
   "name": "@ideacome/foundation",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "common library for front end",
   "main": "index.js",
   "scripts": {
