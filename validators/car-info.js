@@ -60,6 +60,6 @@ export function validateVin(vinNumber) {
  * @param engineNumber 发动机号
  */
 export function isValidEngineNumber(engineNumber) {
-    var r = /^[0-9A-Za-z\-\－\u4e00-\u9fa5]{1,20}$/;
+    var r = /^[0-9A-Za-z\-\－\u4e00-\u9fa5]{1,32}$/;
     return r.test(trimAll(engineNumber));
 }

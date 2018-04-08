@@ -1,4 +1,3 @@
-import { trimAll } from "../transform/string";
 
 /**
  * 验证字符串是否只包含中文字符
@@ -6,7 +5,8 @@ import { trimAll } from "../transform/string";
  */
 export function isAllChinese(s: string): boolean {
     let r = /^[\u4E00-\u9FA5]+$/i;
-    return r.test(trimAll(s));
+    // 此处匹配时不将s中的空格去掉
+    return r.test(s);
 }
 
 /**
@@ -16,4 +16,16 @@ export function isAllChinese(s: string): boolean {
 export function hasChinese(s: string): boolean {
     let r = /[\u4E00-\u9FA5]/;
     return r.test(s);
+}
+
+/**
+ * 验证日期
+ * @param date {string} 2001-01-01
+ * @returns {boolean}
+ */
+export function isDate(date: string): boolean {
+    let reg = date.match(/^(\d{4})(-|\/)(\d{2})\2(\d{2})$/);
+    if (reg == null) return false;
+    var d = new Date(Number(reg[1]), Number(reg[3]) - 1, Number(reg[4]));
+    return (d.getFullYear() == Number(reg[1]) && (d.getMonth() + 1) == Number(reg[3]) && d.getDate() == Number(reg[4]));
 }

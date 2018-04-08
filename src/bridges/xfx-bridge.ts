@@ -1,271 +1,178 @@
 
-declare global {
-    interface Window {
-        xfxForAndroid?: any;
-        wxbAlert?: any;
-        xfxBridgeConf?: any;
-    }
-}
-declare var wxbAlert: any;
-
-var initialized = false;
-var platform = undefined;
-var handler;
-var hostSystemInfo = undefined;
-
-var commandBuffer = {};
-
-function iOSHandler(o) {
-    commandBuffer[o.command] = o;
-    location.href = "xfx://sendCommand/" + o.command;
+export interface XFXCommand {
+    command: string;
+    params?: { [key: string]: any };
+    fallback?: (params?: { [key: string]: any }) => void;
+    callback?: (response: any) => void;
 }
 
-function androidHandler(o) {
-    if (window["xfxForAndroid"] && window.xfxForAndroid["sendCommand"]) {
-        commandBuffer[o.command] = o;
-        window.xfxForAndroid.sendCommand(JSON.stringify({ command: o.command, params: o.params || {} }));
-    }
-    else if (o.fallback) {
-        o.fallback(o.params);
-    }
+interface XFXResponsePayload {
+    command: string;
+    noImpl?: boolean;
+    response?: any;
 }
 
-function fetchParams(c) {
-    var o = commandBuffer[c];
-    var params;
-    if (o) params = o.params;
-    return JSON.stringify(params || {});
+interface XFXEventPayload {
+    name: string;
+    data?: any;
 }
 
-var eventBuffer = {};
+export type XFXEventCallback = (data?: any) => void;
 
-function onEvent(name, callback) {
-    eventBuffer[name] = callback;
+export interface XFXHostSystemInfo {
+    platform?: string;
+    appVersion?: string;
+    OSVersion?: string;
+    /**
+     * 硬件型号, e.g. iPhone X
+     */
+    model?: string;
+    /**
+     * 品牌
+     */
+    brand?: string;
+    screenWidth?: number;
+    screenHeight?: number;
+    /**
+     * App打包渠道, e.g. 'app store'
+     */
+    channel?: string;
 }
 
-function sendEvent(o) {
-    var f = eventBuffer[o.name];
-    setTimeout(function () {
-        f && f(o.data);
-    }, 0);
-}
+export class XFXBridge {
+    private initialized = false;
+    private platform: string;
+    private hostSystemInfo: XFXHostSystemInfo = {};
 
-function init(p, sys) {
-    platform = p;
-    initialized = true;//如果未传入配置，则按照默认处理
-    var handlers = {
-        iOS: iOSHandler,
-        Android: androidHandler
-    };
-    handler = handlers[p];
-    (xfxBridge as any).respond = respond;
-    (xfxBridge as any).sendEvent = sendEvent;
-    (xfxBridge as any).fetchParams = fetchParams;
-    if (typeof sys === 'object') {
-        hostSystemInfo = Object.freeze ? Object.freeze(sys) : sys;
-    }
-}
+    private commandRegistry: {[command: string]: XFXCommand} = {};
+    private eventHandler: {[event: string]: XFXEventCallback} = {};
+    private commandHandler: (co: XFXCommand) => void;
 
-function sendCommand(o) {
-    if (initialized) {
-        handler(o);
-    }
-    else if (o.fallback) {
-        o.fallback(o.params);
-    }
-}
-
-function respond(o) {
-    var co = commandBuffer[o.command];
-    setTimeout(function () {
-        if (o.noImpl) {
-            co && co.fallback && co.fallback(co.params);
+    constructor() {
+        this.commandHandler = (co) => {
+            this.respond({
+                command: co.command,
+                noImpl: true,
+            });
+        };
+        if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.xfxbridge) {
+            this.initIOS();
         }
-        else {
-            co && co.callback && co.callback(o.response);
-        }
-    }, 0);
-}
-
-function getHostSystemInfo() {
-    return hostSystemInfo || {};
-}
-
-
-var _paramstrq: any[] = [];
-var _callback = {};
-(window as any).xfxBridgeParam = function () {
-    return _paramstrq.shift();
-};
-(window as any).xfxBridgeRespond = function (dict) {
-    setTimeout(function () {
-        var f = _callback[dict.key];
-        f && f(dict.value);
-    }, 0);
-};
-var _factory = {
-    "iOS": function (cap, param1, param2) {
-        switch (cap) {
-            case "sendInvitation":
-            case "openNewWebview":
-                _paramstrq.push(JSON.stringify(param1));
-                break;
-            case "scanQRCode":
-            case "uploadFile":
-            case "uploadFileCropped":
-                _callback[cap] = param1;
-                break;
-            case "notifyCarOwner":
-                _paramstrq.push(JSON.stringify(param1));
-                _callback[cap] = param2;
-                break;
-            case "getAppInfo":
-                _callback[cap] = param1;
-                break;
-            case "pickContact":
-            case "uploadImage":
-                _paramstrq.push(JSON.stringify(param1));
-                _callback[cap] = param2;
-                break;
-        }
-        location.href = "xfx://" + cap;
-    },
-    "Android": function (cap, param1, param2) {
-        if (!window["xfxForAndroid"]) {
-            return _notAvailable();
-        }
-        switch (cap) {
-            case "sendInvitation":
-                window.xfxForAndroid.sendInvitation(JSON.stringify(param1));
-                break;
-            case "scanQRCode":
-                _callback[cap] = param1;
-                window.xfxForAndroid.scanQRCode();
-                break;
-            case "uploadFile":
-                _callback[cap] = param1;
-                window.xfxForAndroid.uploadFile();
-                break;
-            case "uploadFileCropped":
-                _callback[cap] = param1;
-                window.xfxForAndroid.uploadFileCropped();
-                break;
-            case "openNewWebview":
-                window.xfxForAndroid.openNewWebview(JSON.stringify(param1));
-                break;
-            case "reset":
-                window.xfxForAndroid.reset();
-                break;
-            case "notifyCarOwner":
-                _callback[cap] = param2;
-                window.xfxForAndroid.notifyCarOwner(JSON.stringify(param1));
-                break;
-            case "getAppInfo":
-                _callback[cap] = param1;
-                window.xfxForAndroid.getAppInfo();
-                break;
-            case "notifyLogout":
-                window.xfxForAndroid.notifyLogout();
-                break;
-            case "setReturnFlag":
-                window.xfxForAndroid.setReturnFlag(param1);
-                break;
-            case "pickContact":
-                _callback[cap] = param2;
-                window.xfxForAndroid.pickContact(JSON.stringify(param1));
-                break;
-            case "uploadImage":
-                _callback[cap] = param2;
-                window.xfxForAndroid.uploadImage(JSON.stringify(param1));
-                break;
+        if (window['xfxForAndroid'] && 'getHostInfo' in window['xfxForAndroid']) {
+            this.initAndroid();
         }
     }
-};
-function _notAvailable() {
-    if (window.wxbAlert) {
-        wxbAlert("您的App版本不支持此功能");
-    } else {
-        alert("您的App版本不支持此功能");
+
+    private initIOS() {
+        this.initialized = true;
+        this.hostSystemInfo = window['__xfx_host_system_info'];
+        this.platform = 'iOS';
+        this.commandHandler = (co) => {
+            window['webkit'].messageHandlers.xfxbridge.postMessage({command: co.command, params: co.params || {}});
+        };
     }
-}
-function _methodFor(cap, fallback?): (...args: any[]) => void {
-    function _route() {
-        if (!_supports(cap)) {
-            if (fallback) {
-                return fallback.apply(null, arguments);
+
+    private initAndroid() {
+        this.initialized = true;
+        try {
+            this.hostSystemInfo = JSON.parse(window['xfxForAndroid'].getHostInfo());
+        } catch (e) {
+        }
+        this.platform = 'Android';
+        this.commandHandler = (co) => {
+            window['xfxForAndroid'].sendCommand(JSON.stringify({ command: co.command, params: co.params || {} }));
+        };
+    }
+
+    private init(platform: string, hostSystemInfo?: object) {
+        if (this.initialized) {
+            console.warn('already intialized. skipping...');
+            return;
+        }
+        this.platform = platform;
+        if (typeof hostSystemInfo === 'object') {
+            this.hostSystemInfo = Object.freeze ? Object.freeze(hostSystemInfo) : hostSystemInfo;
+        }
+        if (platform === 'iOS') {
+            this.commandHandler = (co) => {
+                location.href = `xfx://sendCommand/${co.command}`;
+            };
+        } else if (platform === 'Android') {
+            this.commandHandler = (co) => {
+                window['xfxForAndroid'].sendCommand(JSON.stringify({ command: co.command, params: co.params || {} }));
+            };
+        }
+        this.initialized = true;
+    }
+
+    private respond(o: XFXResponsePayload) {
+        const co = this.commandRegistry[o.command];
+        setTimeout(() => {
+            if (o.noImpl) {
+                co && co.fallback && co.fallback(co.params);
+            } else {
+                co && co.callback && co.callback(o.response);
             }
-            return _notAvailable();
+        }, 0);
+    }
+
+    private sendEvent(o: XFXEventPayload) {
+        const cb = this.eventHandler[o.name];
+        setTimeout(() => {
+            cb && cb(o.data);
+        }, 0);
+    }
+
+    private fetchParams(command: string) {
+        const co = this.commandRegistry[command];
+        const params = co && co.params;
+        return JSON.stringify(params || {});
+    }
+
+    sendCommand(co: XFXCommand) {
+        this.commandRegistry[co.command] = co;
+        this.commandHandler(co);
+    }
+
+    openNewWebview(o: {
+        url: string;
+        usesWebNavbar?: boolean;
+        fallback?: () => void;
+    }) {
+        if (!(o.url.match(/[_\.!~*'()-]/) && o.url.match(/%[0-9a-f]{2}/i))) {
+            o.url = encodeURI(o.url);
         }
-        var m = _factory[_getPlatform()];
-        var arr = [cap];
-        for (var i = 0; i < arguments.length; ++i) arr.push(arguments[i]);
-        m.apply(null, arr);
+        this.sendCommand({
+            command: 'openNewWebview',
+            params: {
+                url: o.url,
+                usesWebNavbar: o.usesWebNavbar
+            },
+            fallback: o.fallback || function () { location.href = o.url; }
+        });
     }
-    return _route;
-}
-function _getPlatform() {
-    var conf = window["xfxBridgeConf"];
-    if (conf) {
-        return conf.platform;
+
+    getHostSystemInfo() {
+        return this.hostSystemInfo;
     }
-}
-function _supports(cap) {
-    return window["xfxBridgeConf"] && window.xfxBridgeConf.capabilities.indexOf(cap) != -1;
+
+    getPlatform() {
+        return this.platform;
+    }
+
+    onEvent(name: string, callback: XFXEventCallback) {
+        this.eventHandler[name] = callback;
+    }
 }
 
-var _methodForOpenNewWebview = _methodFor("openNewWebview", function (o) {
-    window.location.href = o.url;
-})
-function _openNewWebview(o) {
-    if (!(o.url.match(/[_\.!~*'()-]/) && o.url.match(/%[0-9a-f]{2}/i))) {
-        o.url = encodeURI(o.url);
-    }
-    _methodForOpenNewWebview(o);
-}
-var _methodForUploadFile = _methodFor("uploadFile");
-var _methodForUploadFileCropped = _methodFor("uploadFileCropped");
-function _uploadFile(arg0, arg1) {
-    if (typeof arg0 !== 'function' && typeof arg1 === 'function') {
-        if (arg0 && _supports('uploadFileCropped')) {
-            _methodForUploadFileCropped(arg1);
-        }
-        else {
-            _methodForUploadFile(arg1);
-        }
-    }
-    else {
-        _methodForUploadFile(arg0);
-    }
-}
-const xfxBridge = {
-    initialized: initialized,
-    init: init,
-    sendCommand: sendCommand,
-    onEvent: onEvent,
-    getHostSystemInfo: getHostSystemInfo,
+const bridge = new XFXBridge();
 
-    sendInvitation: _methodFor("sendInvitation"),
-    scanQRCode: _methodFor("scanQRCode"),
-    uploadFile: _uploadFile,
-    openNewWebview: _openNewWebview,
-    reset: _methodFor("reset", function (url) { url && (window.location.href = url); }),
-    notifyCarOwner: _methodFor("notifyCarOwner", function (o, f) { f && f(); }),
-    getAppInfo: _methodFor("getAppInfo", function (f) { var o = { platform: _getPlatform() || "Unknown" }; f && f(JSON.stringify(o)); }),
-    notifyLogout: _methodFor("notifyLogout", function () { }),
-    setReturnFlag: _methodFor("setReturnFlag", function () { }),
-    pickContact: _methodFor("pickContact"),
-    uploadImage: _methodFor("uploadImage"),
-
-    supports: _supports,
-    getPlatform: _getPlatform
-};
-
-window['xfxBridge'] = xfxBridge;
+window['xfxBridge'] = bridge;
 
 declare global {
     interface Window {
-        xfxBridge: any;
+        xfxBridge: XFXBridge;
     }
 }
 
-export default xfxBridge;
+export default bridge;

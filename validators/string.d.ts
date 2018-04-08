@@ -8,3 +8,9 @@ export declare function isAllChinese(s: string): boolean;
  * @param s 目标字符串
  */
 export declare function hasChinese(s: string): boolean;
+/**
+ * 验证日期
+ * @param date {string} 2001-01-01
+ * @returns {boolean}
+ */
+export declare function isDate(date: string): boolean;

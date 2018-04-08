@@ -5,12 +5,12 @@
 
 1. 引入库
 ```bash
-npm install git+ssh://git@192.168.1.7:amazing-f2e/ideacome-foundation.git
+npm install -S git+ssh://git@192.168.1.7:amazing-f2e/ideacome-foundation.git
 ```
 
 2. 在代码中使用
 ```javascript
-import { validators } from '@ideacome/foundation';
+import { validators, utils, transform} from '@ideacome/foundation';
 if (validators.isValidPlate(plateNumber)) {
     //...
 }
@@ -22,6 +22,7 @@ if (isValidID(idNumber)) {
     //...
 }
 ```
+
 
 ## 更新
 当这个公共库有更新时，只需执行
@@ -49,4 +50,4 @@ git push origin
 ```
 
 ## 功能列表
-待完善
+查看doc目录下的[文档](http://f7test.wxb.com.cn/ideacome-foundation/index.html)

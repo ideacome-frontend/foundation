@@ -62,6 +62,6 @@ export function validateVin(vinNumber: string): number {
  * @param engineNumber 发动机号
  */
 export function isValidEngineNumber(engineNumber: string): boolean {
-    let r = /^[0-9A-Za-z\-\－\u4e00-\u9fa5]{1,20}$/;
+    let r = /^[0-9A-Za-z\-\－\u4e00-\u9fa5]{1,32}$/;
     return r.test(trimAll(engineNumber));
 }

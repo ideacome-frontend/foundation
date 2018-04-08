@@ -1,34 +1,62 @@
+export interface XFXCommand {
+    command: string;
+    params?: {
+        [key: string]: any;
+    };
+    fallback?: (params?: {
+        [key: string]: any;
+    }) => void;
+    callback?: (response: any) => void;
+}
+export declare type XFXEventCallback = (data?: any) => void;
+export interface XFXHostSystemInfo {
+    platform?: string;
+    appVersion?: string;
+    OSVersion?: string;
+    /**
+     * 硬件型号, e.g. iPhone X
+     */
+    model?: string;
+    /**
+     * 品牌
+     */
+    brand?: string;
+    screenWidth?: number;
+    screenHeight?: number;
+    /**
+     * App打包渠道, e.g. 'app store'
+     */
+    channel?: string;
+}
+export declare class XFXBridge {
+    private initialized;
+    private platform;
+    private hostSystemInfo;
+    private commandRegistry;
+    private eventHandler;
+    private commandHandler;
+    constructor();
+    private initIOS();
+    private initAndroid();
+    private init(platform, hostSystemInfo?);
+    private respond(o);
+    private sendEvent(o);
+    private fetchParams(command);
+    sendCommand(co: XFXCommand): void;
+    openNewWebview(o: {
+        url: string;
+        usesWebNavbar?: boolean;
+        fallback?: () => void;
+    }): void;
+    getHostSystemInfo(): XFXHostSystemInfo;
+    getPlatform(): string;
+    onEvent(name: string, callback: XFXEventCallback): void;
+}
+declare const bridge: XFXBridge;
 declare global  {
     interface Window {
-        xfxForAndroid?: any;
-        wxbAlert?: any;
-        xfxBridgeConf?: any;
+        xfxBridge: XFXBridge;
     }
 }
-declare const xfxBridge: {
-    initialized: boolean;
-    init: (p: any, sys: any) => void;
-    sendCommand: (o: any) => void;
-    onEvent: (name: any, callback: any) => void;
-    getHostSystemInfo: () => {};
-    sendInvitation: (...args: any[]) => void;
-    scanQRCode: (...args: any[]) => void;
-    uploadFile: (arg0: any, arg1: any) => void;
-    openNewWebview: (o: any) => void;
-    reset: (...args: any[]) => void;
-    notifyCarOwner: (...args: any[]) => void;
-    getAppInfo: (...args: any[]) => void;
-    notifyLogout: (...args: any[]) => void;
-    setReturnFlag: (...args: any[]) => void;
-    pickContact: (...args: any[]) => void;
-    uploadImage: (...args: any[]) => void;
-    supports: (cap: any) => boolean;
-    getPlatform: () => any;
-};
-declare global  {
-    interface Window {
-        xfxBridge: any;
-    }
-}
-export default xfxBridge;
+export default bridge;
 export {};
