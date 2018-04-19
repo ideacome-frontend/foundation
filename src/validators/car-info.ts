@@ -29,7 +29,7 @@ export function validateVin(vinNumber: string): number {
                 if (group.indexOf(letter) != -1) {
                     n = index;
                 }
-            });
+            }, 0);
         }
         return n;
     }
