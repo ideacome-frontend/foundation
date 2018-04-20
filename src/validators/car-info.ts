@@ -29,7 +29,7 @@ export function validateVin(vinNumber: string): number {
                 if (group.indexOf(letter) != -1) {
                     n = index;
                 }
-            }, 0);
+            });
         }
         return n;
     }
@@ -41,7 +41,7 @@ export function validateVin(vinNumber: string): number {
             .map(letterToN)
             .reduce((p, n, i) => {
                 return p + n * weight[i];
-            });
+            }, 0);
         let remainder = sum % 11;
         let checkCode: string;
         if (remainder === 10) {

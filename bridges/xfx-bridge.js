@@ -63,10 +63,10 @@ var XFXBridge = (function () {
         var co = this.commandRegistry[o.command];
         setTimeout(function () {
             if (o.noImpl) {
-                co.fallback && co.fallback(co.params);
+                co && co.fallback && co.fallback(co.params);
             }
             else {
-                co.callback && co.callback(o.response);
+                co && co.callback && co.callback(o.response);
             }
         }, 0);
     };

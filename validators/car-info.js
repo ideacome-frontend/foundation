@@ -26,7 +26,7 @@ export function validateVin(vinNumber) {
                 if (group.indexOf(letter) != -1) {
                     n = index;
                 }
-            }, 0);
+            });
         }
         return n;
     }
@@ -38,7 +38,7 @@ export function validateVin(vinNumber) {
             .map(letterToN)
             .reduce(function (p, n, i) {
             return p + n * weight[i];
-        });
+        }, 0);
         var remainder = sum % 11;
         var checkCode = void 0;
         if (remainder === 10) {
