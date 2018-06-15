@@ -41,7 +41,7 @@ export interface XFXHostSystemInfo {
 
 export class XFXBridge {
     private initialized = false;
-    private platform: string;
+    private platform?: string;
     private hostSystemInfo: XFXHostSystemInfo = {};
 
     private commandRegistry: {[command: string]: XFXCommand} = {};

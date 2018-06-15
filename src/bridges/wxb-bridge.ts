@@ -3,8 +3,8 @@ export type ParamsType = { [key: string]: any };
 export type CallbackType = (arg: any) => void;
 
 export class ResultFuture {
-    private successCallback: CallbackType;
-    private failureCallback: CallbackType;
+    private successCallback?: CallbackType;
+    private failureCallback?: CallbackType;
 
     success(cb: CallbackType) {
         this.successCallback = cb;

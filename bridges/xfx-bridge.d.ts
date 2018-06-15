@@ -30,18 +30,18 @@ export interface XFXHostSystemInfo {
 }
 export declare class XFXBridge {
     private initialized;
-    private platform;
+    private platform?;
     private hostSystemInfo;
     private commandRegistry;
     private eventHandler;
     private commandHandler;
     constructor();
-    private initIOS();
-    private initAndroid();
-    private init(platform, hostSystemInfo?);
-    private respond(o);
-    private sendEvent(o);
-    private fetchParams(command);
+    private initIOS;
+    private initAndroid;
+    private init;
+    private respond;
+    private sendEvent;
+    private fetchParams;
     sendCommand(co: XFXCommand): void;
     openNewWebview(o: {
         url: string;
@@ -49,14 +49,13 @@ export declare class XFXBridge {
         fallback?: () => void;
     }): void;
     getHostSystemInfo(): XFXHostSystemInfo;
-    getPlatform(): string;
+    getPlatform(): string | undefined;
     onEvent(name: string, callback: XFXEventCallback): void;
 }
 declare const bridge: XFXBridge;
-declare global  {
+declare global {
     interface Window {
         xfxBridge: XFXBridge;
     }
 }
 export default bridge;
-export {};

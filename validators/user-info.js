@@ -16,7 +16,7 @@ export function isValidID(idNumber) {
     else if (!city[code.substr(0, 2)]) {
         return false;
     }
-    else if (!isDate(time)) {
+    else if (!isDate(time)) { //校验年月日
         return false;
     }
     else {

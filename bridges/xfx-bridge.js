@@ -1,4 +1,4 @@
-var XFXBridge = (function () {
+var XFXBridge = /** @class */ (function () {
     function XFXBridge() {
         var _this = this;
         this.initialized = false;

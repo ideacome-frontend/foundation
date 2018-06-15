@@ -3,8 +3,8 @@ export declare type ParamsType = {
 };
 export declare type CallbackType = (arg: any) => void;
 export declare class ResultFuture {
-    private successCallback;
-    private failureCallback;
+    private successCallback?;
+    private failureCallback?;
     success(cb: CallbackType): this;
     failure(cb: CallbackType): this;
     _invokeSuccess(data: any): void;
@@ -21,24 +21,23 @@ export declare class WXBBridge {
     sendCommand(command: string, params?: ParamsType): ResultFuture;
     on(event: string, callback: CallbackType): void;
     off(event: string, callback?: CallbackType): void;
-    _postResponse({commandId, response}: {
+    _postResponse({ commandId, response }: {
         commandId: string;
         response: any;
     }): void;
-    _notifyFailure({commandId, reason}: {
+    _notifyFailure({ commandId, reason }: {
         commandId: string;
         reason: string;
     }): void;
-    _postEvent({name, data}: {
+    _postEvent({ name, data }: {
         name: string;
         data: any;
     }): void;
 }
 declare const bridge: WXBBridge;
-declare global  {
+declare global {
     interface Window {
         wxbBridge: WXBBridge;
     }
 }
 export default bridge;
-export {};

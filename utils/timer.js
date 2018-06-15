@@ -12,7 +12,7 @@
  * timer.stop();
  * ```
  */
-var Timer = (function () {
+var Timer = /** @class */ (function () {
     function Timer(options) {
         var _this = this;
         this.options = options;

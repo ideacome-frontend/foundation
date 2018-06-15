@@ -1,4 +1,4 @@
-import { isIncludeJs,loadJs } from "./index";
+import { isIncludeJs, loadJs } from "./external";
 
 /**
  * 微信分享设置

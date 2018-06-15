@@ -1,4 +1,4 @@
-var ResultFuture = (function () {
+var ResultFuture = /** @class */ (function () {
     function ResultFuture() {
     }
     ResultFuture.prototype.success = function (cb) {
@@ -18,7 +18,7 @@ var ResultFuture = (function () {
     return ResultFuture;
 }());
 export { ResultFuture };
-var WXBBridge = (function () {
+var WXBBridge = /** @class */ (function () {
     function WXBBridge() {
         var _this = this;
         this.resultFutures = {};
