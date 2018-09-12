@@ -29,7 +29,58 @@ export function isValidID(idNumber: string = ''): boolean {
     }
     return true;
 }
+/**
+ * 验证统一社会信用代码
+ * @param {string} value 信用代码
+ */
+export function isValidSocialCreditCode(value) {
+    let valid = false;
+    const patern = /^[0-9A-Z]{18}/;
+    // 判断字符串长度是否为18；传入是否只为数字或者大写字母
+    if (!patern.test(value)) {
+        return valid;
+    }
+    // 17位权值
+    const power = [1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28];
+    // 统一是社会信用代码允许出现的字符和数字，不使用I、O、Z、S、V这五个英文字母
+    const baseStr = '0123456789ABCDEFGHJKLMNPQRTUWXY';
+    // 1. 获取前17位的基础值
+    let preValue = value.substr(0, value.length-1);
+    // 2. 获取前17位的权值的和
+    let sum = preValue.split('').reduce((acc, item, i) => acc + baseStr.indexOf(item) *power[i], 0);
+    // 3. 将(31-权值和)%31的值转化为字母, 和第18位进行比较
+    if (baseStr[31 - sum % 31] === value.substr(-1)) {
+        valid = true;
+    }
+    return valid;
+}
+/**
+ * 验证组织机构代码
+ * @param {string} value 机构代码
+ */
+export function isValidOrgCodeValid(value) {
+    let valid = false;
+    const reg = /^([0-9A-Z]){9}$/;
+    // 判断字符串长度是否为9；传入是否只为数字或者大写字母
+    if (!reg.test(value)) {
+        return false;
+    }
+    const preValues = value.substr(0,8);
+    const power = [3, 7, 9, 10, 5, 8, 4, 2];
+    const str = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
+    let sum = preValues.split('').reduce((acc, item, i) => {
+        return acc + str.indexOf(item) * power[i]
+    }, 0)
+    //获取校验位的值
+    let C9: any = 11 - (sum % 11);
+    if (C9 == 11) {
+        C9 = '0';
+    } else if (C9 == 10) {
+        C9 = 'X';
+    }
+    return value.substr(-1) == C9;
+}
 /**
  * 验证邮箱
  * @param email 邮箱

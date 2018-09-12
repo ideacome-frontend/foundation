@@ -4,6 +4,16 @@
  */
 export declare function isValidID(idNumber?: string): boolean;
 /**
+ * 验证统一社会信用代码
+ * @param {string} value 信用代码
+ */
+export declare function isValidSocialCreditCode(value: any): boolean;
+/**
+ * 验证组织机构代码
+ * @param {string} value 机构代码
+ */
+export declare function isValidOrgCodeValid(value: any): boolean;
+/**
  * 验证邮箱
  * @param email 邮箱
  */
