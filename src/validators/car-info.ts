@@ -65,3 +65,23 @@ export function isValidEngineNumber(engineNumber: string): boolean {
     let r = /^[0-9A-Za-z\-\－\u4e00-\u9fa5]{1,32}$/;
     return r.test(trimAll(engineNumber));
 }
+
+/**
+ * 判断是否为单位车
+ * @param name 公司名
+ * 单位车 false
+ * 家庭自用车 true
+ */
+export function isNotCompanyCar(name: string): boolean {
+    let noInputAttr = ['公司', '集团', '基金', '合作社', '团体', '协会', '银行', '政府', '局', '事务所', '法院', '医院', '大学', '中学', '小学', '幼儿园', '街道', '社区', '办事处', '厂'];
+    let flag        = true;
+    if (name && name.length > 4) {
+        for (let item of noInputAttr) {
+            if (name.indexOf(item) !== -1) {
+                flag = false;
+                break;
+            }
+        }
+    }
+    return flag;
+}
