@@ -33,7 +33,7 @@ export function isValidID(idNumber: string = ''): boolean {
  * 验证统一社会信用代码
  * @param {string} value 信用代码
  */
-export function isValidSocialCreditCode(value) {
+export function isValidSocialCreditCode(value: string) {
     let valid = false;
     const patern = /^[0-9A-Z]{18}/;
     // 判断字符串长度是否为18；传入是否只为数字或者大写字母
@@ -58,8 +58,7 @@ export function isValidSocialCreditCode(value) {
  * 验证组织机构代码
  * @param {string} value 机构代码
  */
-export function isValidOrgCodeValid(value) {
-    let valid = false;
+export function isValidOrgCodeValid(value: string) {
     const reg = /^([0-9A-Z]){9}$/;
     // 判断字符串长度是否为9；传入是否只为数字或者大写字母
     if (!reg.test(value)) {
@@ -112,7 +111,7 @@ export function isValidBankCardNumber(cardNumber: string): boolean {
  * 验证密码
  * 规则：8-16位数字和字母组成的字符串
  * */
-export function isValidPassword(password) {
+export function isValidPassword(password: string) {
     var patrn = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
     return patrn.test(password);
 }
@@ -123,7 +122,7 @@ export function isValidPassword(password) {
  * @param params Object 传入要校验的类证件类型型
  * @return {*}
  */
-export function isValidCardNo(value, params) {
+export function isValidCardNo(value: string, params: { [key: string]: any }): boolean {
     const type = params.cardType; //证件类型
     if (type == '1') {
         return isValidID(value);

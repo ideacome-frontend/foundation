@@ -14,3 +14,10 @@ export declare function validateVin(vinNumber: string): number;
  * @param engineNumber 发动机号
  */
 export declare function isValidEngineNumber(engineNumber: string): boolean;
+/**
+ * 判断是否为单位车
+ * @param name 公司名
+ * 单位车 false
+ * 家庭自用车 true
+ */
+export declare function isNotCompanyCar(name: string): boolean;

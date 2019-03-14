@@ -7,12 +7,12 @@ export declare function isValidID(idNumber?: string): boolean;
  * 验证统一社会信用代码
  * @param {string} value 信用代码
  */
-export declare function isValidSocialCreditCode(value: any): boolean;
+export declare function isValidSocialCreditCode(value: string): boolean;
 /**
  * 验证组织机构代码
  * @param {string} value 机构代码
  */
-export declare function isValidOrgCodeValid(value: any): boolean;
+export declare function isValidOrgCodeValid(value: string): boolean;
 /**
  * 验证邮箱
  * @param email 邮箱
@@ -32,5 +32,13 @@ export declare function isValidBankCardNumber(cardNumber: string): boolean;
  * 验证密码
  * 规则：8-16位数字和字母组成的字符串
  * */
-export declare function isValidPassword(password: any): boolean;
-export { isAllChinese, hasChinese } from './string';
+export declare function isValidPassword(password: string): boolean;
+/**
+ * 校验证件号码
+ * @param value 要校验的证件号码
+ * @param params Object 传入要校验的类证件类型型
+ * @return {*}
+ */
+export declare function isValidCardNo(value: string, params: {
+    [key: string]: any;
+}): boolean;

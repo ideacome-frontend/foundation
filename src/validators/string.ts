@@ -93,7 +93,7 @@ export function isMultName(str: string): boolean {
 export function isEmojiCharacter(substring: string): boolean {
     for (let i = 0; i < substring.length; i++) {
         let hs = substring.charCodeAt(i);
-        let ls;
+        let ls: any;
         if (0xd800 <= hs && hs <= 0xdbff) {
             if (substring.length > 1) {
                 ls = substring.charCodeAt(i + 1);
