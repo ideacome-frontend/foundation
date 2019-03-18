@@ -116,18 +116,3 @@ export function isValidPassword(password) {
     var patrn = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
     return patrn.test(password);
 }
-/**
- * 校验证件号码
- * @param value 要校验的证件号码
- * @param params Object 传入要校验的类证件类型型
- * @return {*}
- */
-export function isValidCardNo(value, params) {
-    var type = params.cardType; //证件类型
-    if (type == '1') {
-        return isValidID(value);
-    }
-    else {
-        return value.length < 24;
-    }
-}

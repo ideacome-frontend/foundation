@@ -33,12 +33,3 @@ export declare function isValidBankCardNumber(cardNumber: string): boolean;
  * 规则：8-16位数字和字母组成的字符串
  * */
 export declare function isValidPassword(password: string): boolean;
-/**
- * 校验证件号码
- * @param value 要校验的证件号码
- * @param params Object 传入要校验的类证件类型型
- * @return {*}
- */
-export declare function isValidCardNo(value: string, params: {
-    [key: string]: any;
-}): boolean;

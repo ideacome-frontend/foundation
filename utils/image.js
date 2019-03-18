@@ -1,4 +1,3 @@
-import { hinting } from './dom';
 /*压缩图片方法
 * 详见 http://www.zhangxinxu.com/wordpress/2017/07/html5-canvas-image-compress-upload/
 * @param {File} file
@@ -16,7 +15,7 @@ export function zipImage(file, callback, limitMaxWidth, limitMaxHeight) {
         reader.readAsDataURL(file);
     }
     else {
-        hinting('请上传图片。');
+        console.warn("请上传图片");
         return;
     }
     var canvas = document.createElement('canvas');
