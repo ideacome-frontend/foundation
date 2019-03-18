@@ -69,15 +69,14 @@
 					<div class="lead">
 						<p>使用 <code>Timer</code> 类来倒计时。
 						用法：</p>
-						<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> timer = <span class="hljs-keyword">new</span> Timer({
+						<pre><code class="language-javascript"><span class="hljs-keyword">let</span> timer = <span class="hljs-keyword">new</span> Timer({
  <span class="hljs-attr">seconds</span>: <span class="hljs-number">10</span>,
  <span class="hljs-attr">checkSoon</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 当包含这个参数并且为 `true` 时，会马上执行 `tick` 回调</span>
  tick: <span class="hljs-function">(<span class="hljs-params">secondsLeft</span>) =&gt;</span> { <span class="hljs-built_in">console</span>.log(secondsLeft); },
  <span class="hljs-attr">done</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>); }
 });
 <span class="hljs-comment">// 如果需要停止倒计时，使用 `stop()` 方法</span>
-timer.stop();
-</code></pre>
+timer.stop();</code></pre>
 					</div>
 				</div>
 			</section>
@@ -201,102 +200,6 @@ timer.stop();
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/timeroptions.html" class="tsd-kind-icon">Timer<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#loadjscallback" class="tsd-kind-icon">Load<wbr>JsCallback</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#datefromstringornumber" class="tsd-kind-icon">date<wbr>From<wbr>String<wbr>OrNumber</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#daysinmonth" class="tsd-kind-icon">days<wbr>InMonth</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#encodeurlifneeded" class="tsd-kind-icon">encode<wbr>Url<wbr>IfNeeded</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#formatbankcardnumber" class="tsd-kind-icon">format<wbr>Bank<wbr>Card<wbr>Number</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#formatdate" class="tsd-kind-icon">format<wbr>Date</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#formatmoneyuppercasedchinese" class="tsd-kind-icon">format<wbr>Money<wbr>Uppercased<wbr>Chinese</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#formatphonenumber" class="tsd-kind-icon">format<wbr>Phone<wbr>Number</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#friendlyformattime" class="tsd-kind-icon">friendly<wbr>Format<wbr>Time</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#getcurrentcoords" class="tsd-kind-icon">get<wbr>Current<wbr>Coords</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#haschinese" class="tsd-kind-icon">has<wbr>Chinese</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#isallchinese" class="tsd-kind-icon">is<wbr>All<wbr>Chinese</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#isdate" class="tsd-kind-icon">is<wbr>Date</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#isincludejs" class="tsd-kind-icon">is<wbr>Include<wbr>Js</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#isvalidbankcardnumber" class="tsd-kind-icon">is<wbr>Valid<wbr>Bank<wbr>Card<wbr>Number</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#isvalidcellphone" class="tsd-kind-icon">is<wbr>Valid<wbr>Cellphone</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#isvalidemail" class="tsd-kind-icon">is<wbr>Valid<wbr>Email</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#isvalidenginenumber" class="tsd-kind-icon">is<wbr>Valid<wbr>Engine<wbr>Number</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#isvalidid" class="tsd-kind-icon">is<wbr>ValidID</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#isvalidorgcodevalid" class="tsd-kind-icon">is<wbr>Valid<wbr>Org<wbr>Code<wbr>Valid</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#isvalidpassword" class="tsd-kind-icon">is<wbr>Valid<wbr>Password</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#isvalidplate" class="tsd-kind-icon">is<wbr>Valid<wbr>Plate</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#isvalidsocialcreditcode" class="tsd-kind-icon">is<wbr>Valid<wbr>Social<wbr>Credit<wbr>Code</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#loadjs" class="tsd-kind-icon">load<wbr>Js</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#numbersinrange" class="tsd-kind-icon">numbers<wbr>InRange</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#pad" class="tsd-kind-icon">pad</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#parsejsontostring" class="tsd-kind-icon">parse<wbr>Json<wbr>ToString</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#parseurlquery" class="tsd-kind-icon">parse<wbr>Url<wbr>Query</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#trimall" class="tsd-kind-icon">trim<wbr>All</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#validatevin" class="tsd-kind-icon">validate<wbr>Vin</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#wxsharehandle" class="tsd-kind-icon">wx<wbr>Share<wbr>Handle</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

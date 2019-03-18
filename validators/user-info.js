@@ -63,7 +63,6 @@ export function isValidSocialCreditCode(value) {
  * @param {string} value 机构代码
  */
 export function isValidOrgCodeValid(value) {
-    var valid = false;
     var reg = /^([0-9A-Z]){9}$/;
     // 判断字符串长度是否为9；传入是否只为数字或者大写字母
     if (!reg.test(value)) {
@@ -117,4 +116,3 @@ export function isValidPassword(password) {
     var patrn = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
     return patrn.test(password);
 }
-export { isAllChinese, hasChinese } from './string';
