@@ -50,4 +50,4 @@ git push origin
 ```
 
 ## 功能列表
-查看doc目录下的[文档](http://test.wxb.com.cn/supermarket/document/index.html)
+查看doc目录下的[文档](https://test.wxb.com.cn/supermarket/document/index.html)
