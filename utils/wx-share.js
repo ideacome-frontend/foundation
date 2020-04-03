@@ -61,3 +61,33 @@ export function wxShareHandle(data) {
         }); /*加载外引js文件*/
     }
 }
+
+export function wxConfigHandle(data,type) {
+    function setWxShareConfig(data) {
+        var wx = window['wx'] || {};
+        console.log('wx share data=', data);
+        wx.config({
+            debug: false,
+            appId: String(data.appId),
+            timestamp: String(data.timestamp),
+            nonceStr: String(data.nonceStr),
+            signature: String(data.signature),
+            jsApiList:['onMenuShareAppMessage', 'onMenuShareTimeline','hideAllNonBaseMenuItem'] //需要使用的JS接口列表
+        });
+        wx.ready(function () {
+            if(type === 'hide'){
+                wx.hideAllNonBaseMenuItem()
+            }else if(type === 'close'){
+                wx.closeWindow();
+            }
+        });
+    }
+    if (isIncludeJs('jweixin')) {
+        setWxShareConfig(data);
+    }
+    else {
+        loadJs('//res.wx.qq.com/open/js/jweixin-1.0.0.js', function () {
+            setWxShareConfig(data);
+        }); /*加载外引js文件*/
+    }
+}
