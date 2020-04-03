@@ -62,6 +62,11 @@ export function wxShareHandle(data) {
     }
 }
 
+/**
+ * 添加页面关闭和 禁用分享功能
+ * @param {Object} data 请求签名接口返回的数据
+ * @param {String} type 微信sdk中功能
+ */
 export function wxConfigHandle(data,type) {
     function setWxShareConfig(data) {
         var wx = window['wx'] || {};
