@@ -61,3 +61,38 @@ export function wxShareHandle(data) {
         }); /*加载外引js文件*/
     }
 }
+
+/**
+ * 添加页面关闭和 禁用分享功能
+ * @param {Object} data 请求签名接口返回的数据
+ * @param {String} type 微信sdk中功能
+ */
+export function wxConfigHandle(data,type) {
+    function setWxShareConfig(data) {
+        var wx = window['wx'] || {};
+        console.log('wx share data=', data);
+        wx.config({
+            debug: false,
+            appId: String(data.appId),
+            timestamp: String(data.timestamp),
+            nonceStr: String(data.nonceStr),
+            signature: String(data.signature),
+            jsApiList:['onMenuShareAppMessage', 'onMenuShareTimeline','hideAllNonBaseMenuItem'] //需要使用的JS接口列表
+        });
+        wx.ready(function () {
+            if(type === 'hide'){
+                wx.hideAllNonBaseMenuItem()
+            }else if(type === 'close'){
+                wx.closeWindow();
+            }
+        });
+    }
+    if (isIncludeJs('jweixin')) {
+        setWxShareConfig(data);
+    }
+    else {
+        loadJs('//res.wx.qq.com/open/js/jweixin-1.0.0.js', function () {
+            setWxShareConfig(data);
+        }); /*加载外引js文件*/
+    }
+}
