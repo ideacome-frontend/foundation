@@ -96,3 +96,47 @@ export function wxConfigHandle(data,type) {
         }); /*加载外引js文件*/
     }
 }
+
+export function wxPayHanlde(data,{success,cancel,fail}) {
+    function setWxPayConfig(data){
+        var wx = window['wx'] || {};
+        console.log('wx share data=', data);
+        wx.config({
+            debug: false,
+            appId: String(data.appId),
+            timestamp: String(data.timeStamp),
+            nonceStr: String(data.nonceStr),
+            signature: String(data.paySign),
+            jsApiList:['chooseWXPay'] //需要使用的JS接口列表
+        });
+        wx.ready(function () {
+            wx.chooseWXPay({
+                timestamp: String(data.timeStamp), // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                nonceStr: String(data.nonceStr), // 支付签名随机串，不长于 32 位
+                package: String(data.packageInfo), // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+                signType: String(data.signType), // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                paySign: String(data.paySign), // 支付签名
+                success: function (res) {
+                  // 支付成功后的回调函数         
+                  success && success()
+                },
+                cancel: function (res) {
+                    // 用户取消分享后执行的回调函数
+                    cancel && cancel()
+                },
+                fail: function (fail) {
+                    //失败
+                    fail && fail()
+                }
+              });
+        })
+    }
+    if (isIncludeJs('jweixin')) {
+        setWxPayConfig(data);
+    }
+    else {
+        loadJs('//res.wx.qq.com/open/js/jweixin-1.0.0.js', function () {
+            setWxPayConfig(data);
+        }); /*加载外引js文件*/
+    }
+}
