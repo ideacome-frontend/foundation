@@ -12,7 +12,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typedoc": "^0.14.2",
+    "typedoc": "^0.17.4",
     "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.6",
+    "lodash": "^4.17.15"
   }
 }
