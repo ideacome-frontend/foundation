@@ -4,7 +4,7 @@
  * @param s 目标字符串
  */
 export function isAllChinese(s: string): boolean {
-    let r = /^[\u4E00-\u9FA5]+$/i;
+    let r = /^[\u4dae\u4E00-\u9FA5]+$/i;
     // 此处匹配时不将s中的空格去掉
     return r.test(s);
 }

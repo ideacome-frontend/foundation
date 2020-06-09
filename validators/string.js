@@ -3,7 +3,7 @@
  * @param s 目标字符串
  */
 export function isAllChinese(s) {
-    var r = /^[\u4E00-\u9FA5]+$/i;
+    var r = /^[\u4dae\u4E00-\u9FA5]+$/i;
     // 此处匹配时不将s中的空格去掉
     return r.test(s);
 }
