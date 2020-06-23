@@ -3,7 +3,6 @@ import { isIncludeJs, loadJs } from "./external";
  * 微信分享设置
  * @param data
  */
-
 export function wxShareHandle(data) {
     function setWxShareConfig(data) {
         var wx = window['wx'] || {};
@@ -59,6 +58,85 @@ export function wxShareHandle(data) {
     else {
         loadJs('//res.wx.qq.com/open/js/jweixin-1.0.0.js', function () {
             setWxShareConfig(data);
+        }); /*加载外引js文件*/
+    }
+}
+/**
+ * 添加页面关闭和 禁用分享功能
+ * @param {Object} data 请求签名接口返回的数据
+ * @param {String} type 微信sdk中功能
+ */
+export function wxConfigHandle(data, type) {
+    function setWxShareConfig(data) {
+        var wx = window['wx'] || {};
+        console.log('wx share data=', data);
+        wx.config({
+            debug: false,
+            appId: String(data.appId),
+            timestamp: String(data.timestamp),
+            nonceStr: String(data.nonceStr),
+            signature: String(data.signature),
+            jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline', 'hideAllNonBaseMenuItem'] //需要使用的JS接口列表
+        });
+        wx.ready(function () {
+            if (type === 'hide') {
+                wx.hideAllNonBaseMenuItem();
+            }
+            else if (type === 'close') {
+                wx.closeWindow();
+            }
+        });
+    }
+    if (isIncludeJs('jweixin')) {
+        setWxShareConfig(data);
+    }
+    else {
+        loadJs('//res.wx.qq.com/open/js/jweixin-1.0.0.js', function () {
+            setWxShareConfig(data);
+        }); /*加载外引js文件*/
+    }
+}
+export function wxPayHanlde(data, _a) {
+    var success = _a.success, cancel = _a.cancel, fail = _a.fail;
+    function setWxPayConfig(data) {
+        var wx = window['wx'] || {};
+        console.log('wx share data=', data);
+        wx.config({
+            debug: false,
+            appId: String(data.appId),
+            timestamp: String(data.timeStamp),
+            nonceStr: String(data.nonceStr),
+            signature: String(data.paySign),
+            jsApiList: ['chooseWXPay'] //需要使用的JS接口列表
+        });
+        wx.ready(function () {
+            wx.chooseWXPay({
+                timestamp: String(data.timeStamp),
+                nonceStr: String(data.nonceStr),
+                package: String(data.packageInfo),
+                signType: String(data.signType),
+                paySign: String(data.paySign),
+                success: function (res) {
+                    // 支付成功后的回调函数         
+                    success && success();
+                },
+                cancel: function (res) {
+                    // 用户取消分享后执行的回调函数
+                    cancel && cancel();
+                },
+                fail: function (fail) {
+                    //失败
+                    fail && fail();
+                }
+            });
+        });
+    }
+    if (isIncludeJs('jweixin')) {
+        setWxPayConfig(data);
+    }
+    else {
+        loadJs('//res.wx.qq.com/open/js/jweixin-1.0.0.js', function () {
+            setWxPayConfig(data);
         }); /*加载外引js文件*/
     }
 }
