@@ -3,6 +3,7 @@ import { isIncludeJs, loadJs } from "./external";
  * 微信分享设置
  * @param data
  */
+
 export function wxShareHandle(data) {
     function setWxShareConfig(data) {
         var wx = window['wx'] || {};
