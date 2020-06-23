@@ -61,13 +61,12 @@ export function wxShareHandle(data) {
         }); /*加载外引js文件*/
     }
 }
-
 /**
  * 添加页面关闭和 禁用分享功能
  * @param {Object} data 请求签名接口返回的数据
  * @param {String} type 微信sdk中功能
  */
-export function wxConfigHandle(data,type) {
+export function wxConfigHandle(data, type) {
     function setWxShareConfig(data) {
         var wx = window['wx'] || {};
         console.log('wx share data=', data);
@@ -77,12 +76,13 @@ export function wxConfigHandle(data,type) {
             timestamp: String(data.timestamp),
             nonceStr: String(data.nonceStr),
             signature: String(data.signature),
-            jsApiList:['onMenuShareAppMessage', 'onMenuShareTimeline','hideAllNonBaseMenuItem'] //需要使用的JS接口列表
+            jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline', 'hideAllNonBaseMenuItem'] //需要使用的JS接口列表
         });
         wx.ready(function () {
-            if(type === 'hide'){
-                wx.hideAllNonBaseMenuItem()
-            }else if(type === 'close'){
+            if (type === 'hide') {
+                wx.hideAllNonBaseMenuItem();
+            }
+            else if (type === 'close') {
                 wx.closeWindow();
             }
         });
@@ -96,9 +96,9 @@ export function wxConfigHandle(data,type) {
         }); /*加载外引js文件*/
     }
 }
-
-export function wxPayHanlde(data,{success,cancel,fail}) {
-    function setWxPayConfig(data){
+export function wxPayHanlde(data, _a) {
+    var success = _a.success, cancel = _a.cancel, fail = _a.fail;
+    function setWxPayConfig(data) {
         var wx = window['wx'] || {};
         console.log('wx share data=', data);
         wx.config({
@@ -107,29 +107,29 @@ export function wxPayHanlde(data,{success,cancel,fail}) {
             timestamp: String(data.timeStamp),
             nonceStr: String(data.nonceStr),
             signature: String(data.paySign),
-            jsApiList:['chooseWXPay'] //需要使用的JS接口列表
+            jsApiList: ['chooseWXPay'] //需要使用的JS接口列表
         });
         wx.ready(function () {
             wx.chooseWXPay({
-                timestamp: String(data.timeStamp), // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-                nonceStr: String(data.nonceStr), // 支付签名随机串，不长于 32 位
-                package: String(data.packageInfo), // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
-                signType: String(data.signType), // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-                paySign: String(data.paySign), // 支付签名
+                timestamp: String(data.timeStamp),
+                nonceStr: String(data.nonceStr),
+                package: String(data.packageInfo),
+                signType: String(data.signType),
+                paySign: String(data.paySign),
                 success: function (res) {
-                  // 支付成功后的回调函数         
-                  success && success()
+                    // 支付成功后的回调函数         
+                    success && success();
                 },
                 cancel: function (res) {
                     // 用户取消分享后执行的回调函数
-                    cancel && cancel()
+                    cancel && cancel();
                 },
                 fail: function (fail) {
                     //失败
-                    fail && fail()
+                    fail && fail();
                 }
-              });
-        })
+            });
+        });
     }
     if (isIncludeJs('jweixin')) {
         setWxPayConfig(data);
