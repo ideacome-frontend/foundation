@@ -73,7 +73,7 @@
  <span class="hljs-attr">seconds</span>: <span class="hljs-number">10</span>,
  <span class="hljs-attr">checkSoon</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 当包含这个参数并且为 `true` 时，会马上执行 `tick` 回调</span>
  <span class="hljs-attr">tick</span>: <span class="hljs-function">(<span class="hljs-params">secondsLeft</span>) =&gt;</span> { <span class="hljs-built_in">console</span>.log(secondsLeft); },
- <span class="hljs-attr">done</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>); }
+ <span class="hljs-attr">done</span>: <span class="hljs-function">() =&gt;</span> { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;done&#x27;</span>); }
 });
 <span class="hljs-comment">// 如果需要停止倒计时，使用 `stop()` 方法</span>
 timer.stop();</code></pre>
