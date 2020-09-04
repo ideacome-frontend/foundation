@@ -15,7 +15,7 @@ export declare function wxShareHandle(data: wxBaseInfo): void;
  * @param {Object} data 请求签名接口返回的数据
  * @param {String} type 微信sdk中功能
  */
-export declare function wxConfigHandle(data: wxBaseInfo, type: string): void;
+export declare function wxConfigHandle(data: wxBaseInfo, type: string, menuList?: string[]): void;
 interface WxpayParams {
     signType: string;
     paySign: string;
