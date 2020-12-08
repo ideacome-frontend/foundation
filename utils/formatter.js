@@ -171,13 +171,16 @@ export function camelCaseToString(string) {
 /**
  * 反解析，将JSON转成String
  * @param qObj
+ * @param needEncode 是否需要对参数进行encode，默认false不需要
  * @return {string}
  */
-export function parseJsonToString(qObj) {
+export function parseJsonToString(qObj, needEncode) {
     var qArr = [];
     if (qObj) {
         for (var i in qObj) {
-            qArr.push(i + '=' + qObj[i]);
+            var qVal = needEncode ? encodeURIComponent(qObj[i]) : qObj[i];
+            var qKey = needEncode ? encodeURIComponent(i) : i;
+            qArr.push(qKey + '=' + qVal);
         }
     }
     return qArr.join('&');
