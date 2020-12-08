@@ -179,7 +179,8 @@ export function parseJsonToString(qObj, needEncode) {
     if (qObj) {
         for (var i in qObj) {
             var qVal = needEncode ? encodeURIComponent(qObj[i]) : qObj[i];
-            qArr.push(i + '=' + qVal);
+            var qKey = needEncode ? encodeURIComponent(i) : i;
+            qArr.push(qKey + '=' + qVal);
         }
     }
     return qArr.join('&');

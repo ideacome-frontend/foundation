@@ -48,7 +48,7 @@ export declare function camelCaseToString(string: string): string;
  * @param needEncode 是否需要对参数进行encode，默认false不需要
  * @return {string}
  */
-export declare function parseJsonToString(qObj: object, needEncode: boolean): string;
+export declare function parseJsonToString(qObj: object, needEncode?: boolean): string;
 /**
  * [moneyCuter 将数字类型转化为每3个数字一个逗号的货币格式]
  * @param  {[string]}   [待转换的浮点数字串]
