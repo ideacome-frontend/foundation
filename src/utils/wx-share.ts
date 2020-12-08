@@ -75,7 +75,7 @@ export function wxShareHandle(data:wxBaseInfo) {
  * @param {Object} data 请求签名接口返回的数据
  * @param {String} type 微信sdk中功能
  */
-export function wxConfigHandle(data:wxBaseInfo,type:string) {
+export function wxConfigHandle(data:wxBaseInfo,type:string,menuList:string[]=[]) {
     function setWxShareConfig(data:wxBaseInfo) {
         var wx = window['wx'] || {};
         console.log('wx share data=', data);
@@ -85,13 +85,20 @@ export function wxConfigHandle(data:wxBaseInfo,type:string) {
             timestamp: String(data.timestamp),
             nonceStr: String(data.nonceStr),
             signature: String(data.signature),
-            jsApiList:['onMenuShareAppMessage', 'onMenuShareTimeline','hideAllNonBaseMenuItem'] //需要使用的JS接口列表
+            jsApiList:['onMenuShareAppMessage', 'onMenuShareTimeline','hideAllNonBaseMenuItem','hideMenuItems'] //需要使用的JS接口列表
         });
         wx.ready(function () {
-            if(type === 'hide'){
-                wx.hideAllNonBaseMenuItem()
-            }else if(type === 'close'){
-                wx.closeWindow();
+            switch (type) {
+                case 'hide':
+                    wx.hideAllNonBaseMenuItem()
+                    break;
+                case 'close':
+                    wx.closeWindow();
+                    break;
+                case 'hideMenu':
+                    wx.hideMenuItems({
+                        menuList
+                    })
             }
         });
     }

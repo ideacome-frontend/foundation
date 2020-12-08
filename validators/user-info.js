@@ -1,3 +1,4 @@
+import config from './config';
 import { trimAll } from "../transform/string";
 import { isDate } from "./string";
 /**
@@ -7,7 +8,8 @@ import { isDate } from "./string";
 export function isValidID(idNumber) {
     if (idNumber === void 0) { idNumber = ''; }
     var city = { 11: "北京", 12: "天津", 13: "河北", 14: "山西", 15: "内蒙古", 21: "辽宁", 22: "吉林", 23: "黑龙江", 31: "上海", 32: "江苏", 33: "浙江", 34: "安徽", 35: "福建", 36: "江西", 37: "山东", 41: "河南", 42: "湖北 ", 43: "湖南", 44: "广东", 45: "广西", 46: "海南", 50: "重庆", 51: "四川", 52: "贵州", 53: "云南", 54: "西藏", 61: "陕西", 62: "甘肃", 63: "青海", 64: "宁夏", 65: "新疆", 71: "台湾", 81: "香港", 82: "澳门", 91: "国外" };
-    var code = trimAll(idNumber.replace('x', 'X'));
+    var code = idNumber.replace('x', 'X');
+    code = config.trim ? trimAll(code) : code;
     var year = code.substr(6, 4), month = code.substr(10, 2), date = code.substr(12, 2); //身份证年月日
     var time = year + '-' + month + '-' + date; //身份证日期时间戳date
     if (!code || !/^\d{6}(18|19|20)\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(code)) {
@@ -98,7 +100,7 @@ export function isValidEmail(email) {
  */
 export function isValidCellphone(phone) {
     var r = /^1[3,4,5,6,7,8,9]\d{9}$/;
-    return r.test(trimAll(phone));
+    return r.test(config.trim ? trimAll(phone) : phone);
 }
 /**
  * 验证银行卡号
@@ -106,7 +108,7 @@ export function isValidCellphone(phone) {
  */
 export function isValidBankCardNumber(cardNumber) {
     var r = /^[0-9]{16,21}$/;
-    return r.test(trimAll(cardNumber));
+    return r.test(config.trim ? trimAll(cardNumber) : cardNumber);
 }
 /**
  * 验证密码
