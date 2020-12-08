@@ -171,18 +171,20 @@ export function camelCaseToString(string: string): string {
 /**
  * 反解析，将JSON转成String
  * @param qObj
+ * @param needEncode 是否需要对参数进行encode，默认false不需要
  * @return {string}
  */
-export function parseJsonToString(qObj: object): string {
+export function parseJsonToString(qObj: object, needEncode?: boolean): string {
     let qArr: string[] = [];
     if (qObj) {
         for (let i in qObj) {
-            qArr.push(i + '=' + qObj[i]);
+            const qVal = needEncode ? encodeURIComponent(qObj[i]) : qObj[i];
+            const qKey = needEncode ? encodeURIComponent(i) : i;
+            qArr.push(qKey + '=' + qVal);
         }
     }
     return qArr.join('&');
 }
-
 /**
  * [moneyCuter 将数字类型转化为每3个数字一个逗号的货币格式]
  * @param  {[string]}   [待转换的浮点数字串]
