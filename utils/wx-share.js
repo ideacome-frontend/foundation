@@ -77,7 +77,7 @@ export function wxConfigHandle(data, type, menuList) {
             timestamp: String(data.timestamp),
             nonceStr: String(data.nonceStr),
             signature: String(data.signature),
-            jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline', 'hideAllNonBaseMenuItem', 'hideMenuItems'] //需要使用的JS接口列表
+            jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline', 'hideAllNonBaseMenuItem', 'hideMenuItems','showAllNonBaseMenuItem','showMenuItems'] //需要使用的JS接口列表
         });
         wx.ready(function () {
             switch (type) {
@@ -89,6 +89,14 @@ export function wxConfigHandle(data, type, menuList) {
                     break;
                 case 'hideMenu':
                     wx.hideMenuItems({
+                        menuList: menuList
+                    });
+                    break
+                case 'show':
+                    wx.showAllNonBaseMenuItem();
+                    break;
+                case 'showMenu':
+                    wx.showMenuItems({
                         menuList: menuList
                     });
             }
