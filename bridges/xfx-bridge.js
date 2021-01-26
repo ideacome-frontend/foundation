@@ -17,7 +17,7 @@ var XFXBridge = /** @class */ (function () {
         if (window['xfxForAndroid'] && 'getHostInfo' in window['xfxForAndroid']) {
             this.initAndroid();
         }
-        if (window['AppType'] === 'flutterApp') {
+        if (window['__xfx_app_language_type'] === 'flutter') {
             this.initFluter();
         }
     }
