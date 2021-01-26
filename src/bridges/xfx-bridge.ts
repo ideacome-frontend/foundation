@@ -61,8 +61,18 @@ export class XFXBridge {
         if (window['xfxForAndroid'] && 'getHostInfo' in window['xfxForAndroid']) {
             this.initAndroid();
         }
+        if (window['AppType'] === 'flutterApp'){
+            this.initFluter()
+        }
     }
-
+    private initFluter() {
+        this.initialized = true;
+        this.hostSystemInfo = window['__xfx_host_system_info'];
+        this.platform = window['__xfx_host_system_info'].platform;
+        this.commandHandler = (co) => {
+            window['AppBridge'].postMessage(JSON.stringify({ command: co.command, params: co.params || {} }));
+        };
+    }
     private initIOS() {
         this.initialized = true;
         this.hostSystemInfo = window['__xfx_host_system_info'];

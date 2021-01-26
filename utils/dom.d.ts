@@ -4,7 +4,7 @@
  * @return          [返回坐标的对象]
  */
 export declare function getAbsPos(target: HTMLElement): {
-    X: number;
-    Y: number;
+    "X": number;
+    "Y": number;
 };
 export declare function trigger(obj: HTMLElement, event: string): void;

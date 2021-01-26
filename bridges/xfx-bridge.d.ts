@@ -36,6 +36,7 @@ export declare class XFXBridge {
     private eventHandler;
     private commandHandler;
     constructor();
+    private initFluter;
     private initIOS;
     private initAndroid;
     private init;
