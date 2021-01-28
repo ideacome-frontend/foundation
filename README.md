@@ -5,7 +5,7 @@
 
 1. 引入库
 ```bash
-npm install -S git+ssh://git@192.168.1.7:amazing-f2e/ideacome-foundation.git
+npm install -S https://i.wxb.com.cn/supermarket/document/index.html
 ```
 
 2. 在代码中使用
@@ -50,4 +50,4 @@ git push origin
 ```
 
 ## 功能列表
-查看doc目录下的[文档](https://test.wxb.com.cn/supermarket/document/index.html)
+查看doc目录下的[文档](https://i.wxb.com.cn/supermarket/document/index.html)
