@@ -16,7 +16,7 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "handlebars": "^4.7.6",
+    "handlebars": "^4.7.7",
     "lodash": "^4.17.15"
   }
 }
